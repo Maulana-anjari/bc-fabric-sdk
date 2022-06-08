@@ -1,0 +1,61 @@
+# crypto-config.yaml
+
+OrdererOrgs:
+  # ---------------------------------------------------------------------------
+  # Orderer
+  # ---------------------------------------------------------------------------
+  - Name: IAEA
+    Domain: iaea.org
+    EnableNodeOUs: true
+    Specs:
+      - Hostname: orderer
+        SANS:
+            - "localhost"
+            - "127.0.0.1"
+
+  - Name: ASNO
+    Domain: asno.org.au
+    EnableNodeOUs: true
+    Specs:
+      - Hostname: orderer
+        SANS:
+            - "localhost"
+            - "127.0.0.1"
+
+PeerOrgs:
+  # ---------------------------------------------------------------------------
+  # Operator A
+  # ---------------------------------------------------------------------------
+  - Name: OperatorA
+    Domain: operator-a.com.au
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      SANS:
+        - "localhost"
+    Users:
+      Count: 1
+  # ---------------------------------------------------------------------------
+  # Operator B
+  # ---------------------------------------------------------------------------
+  - Name: OperatorB
+    Domain: operator-b.com.au
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      SANS:
+        - "localhost"
+    Users:
+      Count: 1
+  # ---------------------------------------------------------------------------
+  # Operator C
+  # ---------------------------------------------------------------------------
+  - Name: OperatorC
+    Domain: operator-c.co.nz
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      SANS:
+        - "localhost"
+    Users:
+      Count: 1
