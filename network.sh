@@ -29,3 +29,6 @@ scripts/createChannel.sh
 
 # Deploy chain code
 scripts/deployChaincode.sh
+
+# Test the chain code
+scripts/testChaincode.sh
