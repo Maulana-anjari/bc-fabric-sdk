@@ -32,6 +32,20 @@ setGlobalsForPeer0OperatorA(){
     export CORE_PEER_ADDRESS=localhost:$PEER0_OPERATORA_PORT
 }
 
+setGlobalsForPeer0OperatorB(){
+    export CORE_PEER_LOCALMSPID="OperatorBMSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_OPERATORB_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/operator-b.com.au/users/Admin@operator-b.com.au/msp
+    export CORE_PEER_ADDRESS=localhost:$PEER0_OPERATORB_PORT
+}
+
+setGlobalsForPeer0OperatorC(){
+    export CORE_PEER_LOCALMSPID="OperatorCMSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_OPERATORC_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/operator-c.co.nz/users/Admin@operator-c.co.nz/msp
+    export CORE_PEER_ADDRESS=localhost:$PEER0_OPERATORC_PORT
+}
+
 createChannel(){
     # rm -rf ./channel-artifacts/*
     setGlobalsForPeer0OperatorA
@@ -42,7 +56,37 @@ createChannel(){
     --tls $CORE_PEER_TLS_ENABLED --cafile $IAEA_CA
 }
 
+joinChannel(){
+    setGlobalsForPeer0OperatorA
+    peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
+
+    setGlobalsForPeer0OperatorB
+    peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block 
+
+    setGlobalsForPeer0OperatorC
+    peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
+}
+
+updateAnchorPeers(){
+    setGlobalsForPeer0OperatorA
+    peer channel update -o localhost:$IAEA_PORT --ordererTLSHostnameOverride $IAEA_HOST -c $CHANNEL_NAME \
+    -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $IAEA_CA
+    
+    setGlobalsForPeer0OperatorB
+    peer channel update -o localhost:$IAEA_PORT --ordererTLSHostnameOverride $IAEA_HOST -c $CHANNEL_NAME \
+    -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $IAEA_CA
+
+    setGlobalsForPeer0OperatorC
+    peer channel update -o localhost:$IAEA_PORT --ordererTLSHostnameOverride $IAEA_HOST -c $CHANNEL_NAME \
+    -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $IAEA_CA
+}
+
 # Start here
+echo "==================================== Creating the Channel ========================================================"
 createChannel
-# joinChannel
-# updateAnchorPeers
+
+echo "==================================== Joining the Channel ========================================================="
+joinChannel
+
+echo "==================================== Updating Anchor Peers ======================================================="
+updateAnchorPeers

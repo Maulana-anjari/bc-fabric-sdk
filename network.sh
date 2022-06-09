@@ -19,7 +19,13 @@ docker-compose -f ./config/docker/docker-compose.yaml down --volumes --remove-or
 scripts/createArtifacts.sh
 
 # Start the network
+echo "==================================== Starting Docker network ====================================================="
 docker-compose -f ./config/docker/docker-compose.yaml up -d
+
+sleep 3
 
 # Create channel
 scripts/createChannel.sh
+
+# Deploy chain code
+scripts/deployChaincode.sh
