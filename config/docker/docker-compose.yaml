@@ -1,11 +1,11 @@
 version: "2"
 
 networks:
-  slinmac:
+  pharma-chain:
 
 services:
-  orderer.iaea.org:
-    container_name: orderer.iaea.org
+  orderer.arsada.org:
+    container_name: orderer.arsada.org
     image: hyperledger/fabric-orderer:2.1
     dns_search: .
     environment:
@@ -14,7 +14,7 @@ services:
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/genesis.block
-      - ORDERER_GENERAL_LOCALMSPID=IAEAMSP
+      - ORDERER_GENERAL_LOCALMSPID=ARSADAMSP
       - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
       - ORDERER_GENERAL_TLS_ENABLED=true
       - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
@@ -33,14 +33,14 @@ services:
       - 5050:5050
       - 5051:5051
     networks:
-      - slinmac
+      - pharma-chain
     volumes:
       - ../../channel-artifacts/genesis.block:/var/hyperledger/orderer/genesis.block
-      - ../../organizations/ordererOrganizations/iaea.org/orderers/orderer.iaea.org/msp:/var/hyperledger/orderer/msp
-      - ../../organizations/ordererOrganizations/iaea.org/orderers/orderer.iaea.org/tls:/var/hyperledger/orderer/tls
+      - ../../organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/msp:/var/hyperledger/orderer/msp
+      - ../../organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/tls:/var/hyperledger/orderer/tls
 
-  orderer.asno.org.au:
-    container_name: orderer.asno.org.au
+  orderer.arssi.org:
+    container_name: orderer.arssi.org
     image: hyperledger/fabric-orderer:2.1
     dns_search: .
     environment:
@@ -49,7 +49,7 @@ services:
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
-      - ORDERER_GENERAL_LOCALMSPID=ASNOMSP
+      - ORDERER_GENERAL_LOCALMSPID=ARSSIMSP
       - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
       - ORDERER_GENERAL_TLS_ENABLED=true
       - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
@@ -68,31 +68,31 @@ services:
       - 6050:6050
       - 6061:6061
     networks:
-      - slinmac
+      - pharma-chain
     volumes:
       - ../../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-      - ../../organizations/ordererOrganizations/asno.org.au/orderers/orderer.asno.org.au/msp:/var/hyperledger/orderer/msp
-      - ../../organizations/ordererOrganizations/asno.org.au/orderers/orderer.asno.org.au/tls:/var/hyperledger/orderer/tls
+      - ../../organizations/ordererOrganizations/arssi.org/orderers/orderer.arssi.org/msp:/var/hyperledger/orderer/msp
+      - ../../organizations/ordererOrganizations/arssi.org/orderers/orderer.arssi.org/tls:/var/hyperledger/orderer/tls
 
-  peer0.operator-a.com.au:
-    container_name: peer0.operator-a.com.au
+  peer0.sardjito.co.id:
+    container_name: peer0.sardjito.co.id
     extends:
       file: base.yaml
       service: peer-base
     environment:
       - FABRIC_LOGGING_SPEC=info
       - ORDERER_GENERAL_LOGLEVEL=info
-      - CORE_PEER_LOCALMSPID=OperatorAMSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_slinmac
-      - CORE_PEER_ID=peer0.operator-a.com.au
-      - CORE_PEER_ADDRESS=peer0.operator-a.com.au:7051
+      - CORE_PEER_LOCALMSPID=SardjitoMSP
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_pharma-chain
+      - CORE_PEER_ID=peer0.sardjito.co.id
+      - CORE_PEER_ADDRESS=peer0.sardjito.co.id:7051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.operator-a.com.au:7052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.sardjito.co.id:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
       #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ta3.com:9051
       # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.operator-a.com.au:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.sardjito.co.id:7051
       # - CORE_OPERATIONS_LISTENADDRESS=0.0.0.0:9440
       # - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       # - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
@@ -107,30 +107,30 @@ services:
     ports:
       - 7051:7051
     volumes:
-      - ../../organizations/peerOrganizations/operator-a.com.au/peers/peer0.operator-a.com.au/msp:/etc/hyperledger/crypto/peer/msp
-      - ../../organizations/peerOrganizations/operator-a.com.au/peers/peer0.operator-a.com.au/tls:/etc/hyperledger/crypto/peer/tls
+      - ../../organizations/peerOrganizations/sardjito.co.id/peers/peer0.sardjito.co.id/msp:/etc/hyperledger/crypto/peer/msp
+      - ../../organizations/peerOrganizations/sardjito.co.id/peers/peer0.sardjito.co.id/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
-      - slinmac
+      - pharma-chain
 
-  peer0.operator-b.com.au:
-    container_name: peer0.operator-b.com.au
+  peer0.rscm.co.id:
+    container_name: peer0.rscm.co.id
     extends:
       file: base.yaml
       service: peer-base
     environment:
       - FABRIC_LOGGING_SPEC=info
       - ORDERER_GENERAL_LOGLEVEL=info
-      - CORE_PEER_LOCALMSPID=OperatorBMSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_slinmac
-      - CORE_PEER_ID=peer0.operator-b.com.au
-      - CORE_PEER_ADDRESS=peer0.operator-b.com.au:8051
+      - CORE_PEER_LOCALMSPID=RSCMMSP
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_pharma-chain
+      - CORE_PEER_ID=peer0.rscm.co.id
+      - CORE_PEER_ADDRESS=peer0.rscm.co.id:8051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.operator-b.com.au:8052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.rscm.co.id:8052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
       # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.operator-b.com.au:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.rscm.co.id:8051
       # - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       # - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
       # - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
@@ -145,27 +145,27 @@ services:
     ports:
       - 8051:8051
     volumes:
-      - ../../organizations/peerOrganizations/operator-b.com.au/peers/peer0.operator-b.com.au/msp:/etc/hyperledger/crypto/peer/msp
-      - ../../organizations/peerOrganizations/operator-b.com.au/peers/peer0.operator-b.com.au/tls:/etc/hyperledger/crypto/peer/tls
+      - ../../organizations/peerOrganizations/rscm.co.id/peers/peer0.rscm.co.id/msp:/etc/hyperledger/crypto/peer/msp
+      - ../../organizations/peerOrganizations/rscm.co.id/peers/peer0.rscm.co.id/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
-      - slinmac
+      - pharma-chain
 
-  peer0.operator-c.co.nz:
-    container_name: peer0.operator-c.co.nz
+  peer0.dharmais.co.id:
+    container_name: peer0.dharmais.co.id
     extends:
       file: base.yaml
       service: peer-base
     environment:
       - FABRIC_LOGGING_SPEC=info
       - ORDERER_GENERAL_LOGLEVEL=info
-      - CORE_PEER_LOCALMSPID=OperatorCMSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_slinmac
-      - CORE_PEER_ID=peer0.operator-c.co.nz
-      - CORE_PEER_ADDRESS=peer0.operator-c.co.nz:9051
+      - CORE_PEER_LOCALMSPID=DharmaisMSP
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_pharma-chain
+      - CORE_PEER_ID=peer0.dharmais.co.id
+      - CORE_PEER_ADDRESS=peer0.dharmais.co.id:9051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.operator-c.co.nz:9052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.dharmais.co.id:9052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.ta3.com:9051
@@ -183,9 +183,9 @@ services:
     ports:
       - 9051:9051
     volumes:
-      - ../../organizations/peerOrganizations/operator-c.co.nz/peers/peer0.operator-c.co.nz/msp:/etc/hyperledger/crypto/peer/msp
-      - ../../organizations/peerOrganizations/operator-c.co.nz/peers/peer0.operator-c.co.nz/tls:/etc/hyperledger/crypto/peer/tls
+      - ../../organizations/peerOrganizations/dharmais.co.id/peers/peer0.dharmais.co.id/msp:/etc/hyperledger/crypto/peer/msp
+      - ../../organizations/peerOrganizations/dharmais.co.id/peers/peer0.dharmais.co.id/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
-      - slinmac
+      - pharma-chain
