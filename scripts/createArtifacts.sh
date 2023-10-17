@@ -2,32 +2,32 @@
 
 # Note: this file is to be called from ../network.sh
 
-# Generate Crypto artifacts for organizations
+# Generate (key material) Crypto artifacts for organizations 
 echo "==================================== Generating Cryptos ========================================================================"
 cryptogen generate --config=./config/crypto-config.yaml --output=./organizations/
 
 # System channel
 SYS_CHANNEL="sys-channel"
-CHANNEL_NAME="slinmac"
+CHANNEL_NAME="pharma-chain"
 
 echo $CHANNEL_NAME
 
 # Generate System Genesis block
 echo "==================================== Generating Orderer Genesis ========================================================================"
-configtxgen -profile OrdererGenesis -configPath ./config/ -channelID $SYS_CHANNEL  -outputBlock ./channel-artifacts/genesis.block
+configtxgen -profile OrdererGenesis -configPath ./config/ -channelID $SYS_CHANNEL -outputBlock ./channel-artifacts/genesis.block
 
 echo "==================================== Generating Channel Genesis ========================================================================"
 # Generate channel configuration block
-configtxgen -profile BasicChannel -configPath ./config/ -outputCreateChannelTx ./channel-artifacts/slinmac.tx -channelID $CHANNEL_NAME
+configtxgen -profile BasicChannel -configPath ./config/ -outputCreateChannelTx ./channel-artifacts/pharma-chain.tx -channelID $CHANNEL_NAME
 
-echo "==================================== Generating Anchor OperatorA ========================================================================"
-configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/OperatorAMSPanchors.tx -channelID $CHANNEL_NAME -asOrg OperatorAMSP
+echo "==================================== Generating Anchor Sardjito ========================================================================"
+configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/SardjitoMSPanchors.tx -channelID $CHANNEL_NAME -asOrg SardjitoMSP
 
-echo "==================================== Generating Anchor OperatorB ========================================================================"
-configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/OperatorBMSPanchors.tx -channelID $CHANNEL_NAME -asOrg OperatorBMSP
+echo "==================================== Generating Anchor RSCM ========================================================================"
+configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/RSCMMSPanchors.tx -channelID $CHANNEL_NAME -asOrg RSCMMSP
 
-echo "==================================== Generating Anchor OperatorC ========================================================================"
-configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/OperatorCMSPanchors.tx -channelID $CHANNEL_NAME -asOrg OperatorCMSP
+echo "==================================== Generating Anchor Dharmais ========================================================================"
+configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/DharmaisMSPanchors.tx -channelID $CHANNEL_NAME -asOrg DharmaisMSP
 
 # echo "==================================== Generating Connection Profiles ===================================="
 # source ccp-generate.sh

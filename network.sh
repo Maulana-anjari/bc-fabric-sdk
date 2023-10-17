@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # network.sh
-# SLINMAC
-# (c) 2022
+# PHARMA-CHAIN
+# (c) 2023
 
 # Delete existing artifacts
 if [ -d channel-artifacts ]; then
