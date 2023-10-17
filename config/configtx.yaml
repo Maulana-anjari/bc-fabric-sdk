@@ -10,16 +10,16 @@ Organizations:
 
     # SampleOrg defines an MSP using the sampleconfig.  It should never be used
     # in production but may be used as a template for other definitions
-    - &IAEA
+    - &ARSADA
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: IAEA
+        Name: ARSADA
 
         # ID to load the MSP definition as
-        ID: IAEAMSP
+        ID: ARSADAMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: ../organizations/ordererOrganizations/iaea.org/msp
+        MSPDir: ../organizations/ordererOrganizations/arsada.org/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -27,24 +27,24 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('IAEAMSP.member')"
+                Rule: "OR('ARSADAMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('IAEAMSP.member')"
+                Rule: "OR('ARSADAMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('IAEAMSP.admin')"
+                Rule: "OR('ARSADAMSP.admin')"
     
-    - &ASNO
+    - &ARSSI
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: ASNO
+        Name: ARSSI
 
         # ID to load the MSP definition as
-        ID: ASNOMSP
+        ID: ARSSIMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: ../organizations/ordererOrganizations/asno.org.au/msp
+        MSPDir: ../organizations/ordererOrganizations/arssi.org/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -52,23 +52,23 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('ASNOMSP.member')"
+                Rule: "OR('ARSSIMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('ASNOMSP.member')"
+                Rule: "OR('ARSSIMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('ASNOMSP.admin')"
+                Rule: "OR('ARSSIMSP.admin')"
 
-    - &OperatorA
+    - &Sardjito
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: OperatorAMSP
+        Name: SardjitoMSP
 
         # ID to load the MSP definition as
-        ID: OperatorAMSP
+        ID: SardjitoMSP
 
-        MSPDir: ../organizations/peerOrganizations/operator-a.com.au/msp
+        MSPDir: ../organizations/peerOrganizations/sardjito.co.id/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -76,34 +76,34 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('OperatorAMSP.admin', 'OperatorAMSP.peer', 'OperatorAMSP.client')"
+                Rule: "OR('SardjitoMSP.admin', 'SardjitoMSP.peer', 'SardjitoMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('OperatorAMSP.admin', 'OperatorAMSP.client')"
+                Rule: "OR('SardjitoMSP.admin', 'SardjitoMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('OperatorAMSP.admin')"
+                Rule: "OR('SardjitoMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('OperatorAMSP.peer')"
+                Rule: "OR('SardjitoMSP.peer')"
 
         # leave this flag set to true.
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.operator-a.com.au
+            - Host: peer0.sardjito.co.id
               Port: 7051
 
-    - &OperatorB
+    - &RSCM
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: OperatorBMSP
+        Name: RSCMMSP
 
         # ID to load the MSP definition as
-        ID: OperatorBMSP
+        ID: RSCMMSP
 
-        MSPDir: ../organizations/peerOrganizations/operator-b.com.au/msp
+        MSPDir: ../organizations/peerOrganizations/rscm.co.id/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -111,33 +111,33 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('OperatorBMSP.admin', 'OperatorBMSP.peer', 'OperatorBMSP.client')"
+                Rule: "OR('RSCMMSP.admin', 'RSCMMSP.peer', 'RSCMMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('OperatorBMSP.admin', 'OperatorBMSP.client')"
+                Rule: "OR('RSCMMSP.admin', 'RSCMMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('OperatorBMSP.admin')"
+                Rule: "OR('RSCMMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('OperatorBMSP.peer')"
+                Rule: "OR('RSCMMSP.peer')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.operator-b.com.au
+            - Host: peer0.rscm.co.id
               Port: 8051
 
-    - &OperatorC
+    - &Dharmais
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: OperatorCMSP
+        Name: DharmaisMSP
 
         # ID to load the MSP definition as
-        ID: OperatorCMSP
+        ID: DharmaisMSP
 
-        MSPDir: ../organizations/peerOrganizations/operator-c.co.nz/msp
+        MSPDir: ../organizations/peerOrganizations/dharmais.co.id/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -145,22 +145,22 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('OperatorCMSP.admin', 'OperatorCMSP.peer', 'OperatorCMSP.client')"
+                Rule: "OR('DharmaisMSP.admin', 'DharmaisMSP.peer', 'DharmaisMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('OperatorCMSP.admin', 'OperatorCMSP.client')"
+                Rule: "OR('DharmaisMSP.admin', 'DharmaisMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('OperatorCMSP.admin')"
+                Rule: "OR('DharmaisMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('OperatorCMSP.peer')"
+                Rule: "OR('DharmaisMSP.peer')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.operator-c.co.nz
+            - Host: peer0.dharmais.co.id
               Port: 9051
 
 ################################################################################
@@ -252,7 +252,7 @@ Application: &ApplicationDefaults
         Endorsement:
             Type: Signature
             # Rule: "MAJORITY Endorsement"
-            Rule: "OutOf(2, 'OperatorAMSP.admin', 'OperatorBMSP.admin', 'OperatorCMSP.admin')"
+            Rule: "OutOf(2, 'SardjitoMSP.admin', 'RSCMMSP.admin', 'DharmaisMSP.admin')"
 
     Capabilities:
         <<: *ApplicationCapabilities
@@ -271,23 +271,23 @@ Orderer: &OrdererDefaults
 
     EtcdRaft:
         Consenters:
-        - Host: orderer.iaea.org
+        - Host: orderer.arsada.org
           Port: 5050
-          ClientTLSCert: ../organizations/ordererOrganizations/iaea.org/orderers/orderer.iaea.org/tls/server.crt
-          ServerTLSCert: ../organizations/ordererOrganizations/iaea.org/orderers/orderer.iaea.org/tls/server.crt
+          ClientTLSCert: ../organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/tls/server.crt
+          ServerTLSCert: ../organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/tls/server.crt
 
-        - Host: orderer.asno.org.au
+        - Host: orderer.arssi.org
           Port: 6050
-          ClientTLSCert: ../organizations/ordererOrganizations/asno.org.au/orderers/orderer.asno.org.au/tls/server.crt
-          ServerTLSCert: ../organizations/ordererOrganizations/asno.org.au/orderers/orderer.asno.org.au/tls/server.crt
+          ClientTLSCert: ../organizations/ordererOrganizations/arssi.org/orderers/orderer.arssi.org/tls/server.crt
+          ServerTLSCert: ../organizations/ordererOrganizations/arssi.org/orderers/orderer.arssi.org/tls/server.crt
 
         #Options:
         #    TickInterval: 200ms
         #    ElectionTick: 5
 
     Addresses:
-        - orderer.iaea.org:5050
-        - orderer.asno.org.au:6050
+        - orderer.arsada.org:5050
+        - orderer.arssi.org:6050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -378,9 +378,9 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *OperatorA
-                - *OperatorB
-                - *OperatorC
+                - *Sardjito
+                - *RSCM
+                - *Dharmais
             Capabilities:
                 <<: *ApplicationCapabilities
 
@@ -393,32 +393,32 @@ Profiles:
             OrdererType: etcdraft
             EtcdRaft:
                 Consenters:
-                - Host: orderer.iaea.org
+                - Host: orderer.arsada.org
                   Port: 5050
-                  ClientTLSCert: ../organizations/ordererOrganizations/iaea.org/orderers/orderer.iaea.org/tls/server.crt
-                  ServerTLSCert: ../organizations/ordererOrganizations/iaea.org/orderers/orderer.iaea.org/tls/server.crt
+                  ClientTLSCert: ../organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/tls/server.crt
+                  ServerTLSCert: ../organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/tls/server.crt
 
-                - Host: orderer.asno.org.au
+                - Host: orderer.arssi.org
                   Port: 6050
-                  ClientTLSCert: ../organizations/ordererOrganizations/asno.org.au/orderers/orderer.asno.org.au/tls/server.crt
-                  ServerTLSCert: ../organizations/ordererOrganizations/asno.org.au/orderers/orderer.asno.org.au/tls/server.crt
+                  ClientTLSCert: ../organizations/ordererOrganizations/arssi.org/orderers/orderer.arssi.org/tls/server.crt
+                  ServerTLSCert: ../organizations/ordererOrganizations/arssi.org/orderers/orderer.arssi.org/tls/server.crt
 
                 #Options:
                 #  TickInterval: 200ms
                 #  ElectionTick: 5
 
             Addresses:
-            - orderer.iaea.org:5050
-            - orderer.asno.org.au:6050
+            - orderer.arsada.org:5050
+            - orderer.arssi.org:6050
 
             Organizations:
-            - *IAEA
-            - *ASNO
+            - *ARSADA
+            - *ARSSI
             Capabilities:
                 <<: *OrdererCapabilities
         Consortiums:
             SampleConsortium:
                 Organizations:
-                - *OperatorA
-                - *OperatorB
-                - *OperatorC
+                - *Sardjito
+                - *RSCM
+                - *Dharmais

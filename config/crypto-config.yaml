@@ -4,8 +4,8 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   # Orderer
   # ---------------------------------------------------------------------------
-  - Name: IAEA
-    Domain: iaea.org
+  - Name: ARSADA
+    Domain: arsada.org
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer
@@ -13,8 +13,8 @@ OrdererOrgs:
             - "localhost"
             - "127.0.0.1"
 
-  - Name: ASNO
-    Domain: asno.org.au
+  - Name: ARSSI
+    Domain: arssi.org
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer
@@ -24,10 +24,10 @@ OrdererOrgs:
 
 PeerOrgs:
   # ---------------------------------------------------------------------------
-  # Operator A
+  # RSUP Dr. Sardjito, DIY [Central General Hospital]
   # ---------------------------------------------------------------------------
-  - Name: OperatorA
-    Domain: operator-a.com.au
+  - Name: Sardjito
+    Domain: sardjito.co.id
     EnableNodeOUs: true
     Template:
       Count: 1
@@ -36,10 +36,10 @@ PeerOrgs:
     Users:
       Count: 1
   # ---------------------------------------------------------------------------
-  # Operator B
+  # RSUPN Dr. Cipto Mangunkusumo, Jakarta Pusat [National Central General Hospital]
   # ---------------------------------------------------------------------------
-  - Name: OperatorB
-    Domain: operator-b.com.au
+  - Name: RSCM
+    Domain: rscm.co.id
     EnableNodeOUs: true
     Template:
       Count: 1
@@ -48,10 +48,10 @@ PeerOrgs:
     Users:
       Count: 1
   # ---------------------------------------------------------------------------
-  # Operator C
+  # RS Kanker Dharmais, Jakarta Barat [Private Specialized Hospital]
   # ---------------------------------------------------------------------------
-  - Name: OperatorC
-    Domain: operator-c.co.nz
+  - Name: Dharmais
+    Domain: dharmais.co.id
     EnableNodeOUs: true
     Template:
       Count: 1
