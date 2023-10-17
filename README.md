@@ -1,7 +1,6 @@
 # PHARMA-CHAIN
-[comment]: <Secure Shared Ledger Implementation of Nuclear Materials Accounting and Control. It enables efficient, compliant, and tamper-proof transactions, promoting trust and data security across these sectors>
 
-Basic Hyperledger Fabric network setup for secure and transparent data exchange between healthcare providers, insurance companies, and pharmaceutical supply chain entities. The network consists of five fictional actors:
+Basic Hyperledger Fabric network setup for secure and transparent data exchange between healthcare providers, insurance companies, and pharmaceutical supply chain entities. For this network configuration, it will be used as a decentralized healthcare network which includes 2 hospital association organizations (public and private), 1 regional central public hospital, 1 national central public hospital, and 1 national cancer center hospital. The healthcare network consists of five fictional actors:
 
 - ARSADA (Orderer org)
 - ARSSI (Orderer org)
