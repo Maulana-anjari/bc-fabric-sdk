@@ -12,7 +12,7 @@ To spin the network, firstly install Hyperledger Fabric [prerequisites](https://
 
 1. Creation of crypto artifacts/credentials (`script/createArtifacts.sh`).
 2. Running docker container network (`docker-compose`).
-3. Creation of application channel `slinmac` (`scripts/createChannel.sh`).
+3. Creation of application channel `pharma-chain` (`scripts/createChannel.sh`).
 4. Deployment of chaincode (`scripts/deployChaincode.sh`).
 5. Testing of chaincode (`scripts/testChaincode.sh`). This step only invokes `UploadIdentity` function to check if the chaincode functions normally/
 
