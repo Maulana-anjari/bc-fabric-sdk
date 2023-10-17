@@ -1,13 +1,15 @@
-# SLINMAC
-Basic Hyperledger Fabric network setup for Secure Shared Ledger Implementation of Nuclear Materials Accounting and Control. The network consists of five fictional actors:
+# PHARMA-CHAIN
+[comment]: <Secure Shared Ledger Implementation of Nuclear Materials Accounting and Control. It enables efficient, compliant, and tamper-proof transactions, promoting trust and data security across these sectors>
 
-- IAEA (Orderer org)
-- ASNO (Orderer org)
-- Nuclear Operator A (Peer org)
-- Nuclear Operator B (Peer org)
-- Nuclear Operator C (Peer org)
+Basic Hyperledger Fabric network setup for secure and transparent data exchange between healthcare providers, insurance companies, and pharmaceutical supply chain entities. The network consists of five fictional actors:
 
-To spin the network, firstly install Hyperledger Fabric [prerequisites](https://hyperledger-fabric.readthedocs.io/en/release-2.4/prereqs.html) and [CLI tool binaries](https://hyperledger-fabric.readthedocs.io/en/release-2.4/install.html). Then simply execute `./network.sh` script, which will perform:
+- ARSADA (Orderer org)
+- ARSSI (Orderer org)
+- Sardjito Hospital (Peer org)
+- RSCM Hospital (Peer org)
+- Dharmais Hospita (Peer org)
+
+To spin the network, firstly install Hyperledger Fabric [prerequisites](https://hyperledger-fabric.readthedocs.io/en/release-2.1/prereqs.html) and [CLI tool binaries](https://hyperledger-fabric.readthedocs.io/en/release-2.1/install.html). Then simply execute `./network.sh` script, which will perform:
 
 1. Creation of crypto artifacts/credentials (`script/createArtifacts.sh`).
 2. Running docker container network (`docker-compose`).
@@ -15,6 +17,7 @@ To spin the network, firstly install Hyperledger Fabric [prerequisites](https://
 4. Deployment of chaincode (`scripts/deployChaincode.sh`).
 5. Testing of chaincode (`scripts/testChaincode.sh`). This step only invokes `UploadIdentity` function to check if the chaincode functions normally/
 
+### NOTE
 To shut down the docker network and remove the artifacts, run the following commands from project root:
 ```
 $ rm -rf ./channel-artifacts
