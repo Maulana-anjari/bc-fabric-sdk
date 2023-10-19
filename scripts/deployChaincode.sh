@@ -20,11 +20,11 @@ export FABRIC_CFG_PATH=${PWD}/config/
 export AAUI_PORT=5050
 export AAUI_HOST=orderer.aaui.org
 
-CHANNEL_NAME="pharma-chain"
+CHANNEL_NAME="network_health_insurance"
 CC_RUNTIME_LANGUAGE="node"
 VERSION="1"
 CC_SRC_PATH="./chaincode/"
-CC_NAME="network_health_insurance"
+CC_NAME="pchic-contract"
 
 ########################################################################################################################
 # Functions definition
