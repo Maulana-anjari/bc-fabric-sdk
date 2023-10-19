@@ -1,7 +1,7 @@
 {
-    "name": "pharma-contract",
+    "name": "pchic-contract",
     "version": "1.0.0",
-    "description": "Smart Contract for PHARMA-CHAIN",
+    "description": "Smart Contract for PHARMA-CHAIN Health Insurance Company",
     "main": "index.js",
     "engines": {
         "node": ">=12",

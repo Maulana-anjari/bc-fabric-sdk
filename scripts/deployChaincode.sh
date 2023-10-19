@@ -24,7 +24,7 @@ CHANNEL_NAME="pharma-chain"
 CC_RUNTIME_LANGUAGE="node"
 VERSION="1"
 CC_SRC_PATH="./chaincode/"
-CC_NAME="pharma-contract"
+CC_NAME="network_health_insurance"
 
 ########################################################################################################################
 # Functions definition

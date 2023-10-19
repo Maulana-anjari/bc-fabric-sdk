@@ -20,7 +20,7 @@ export FABRIC_CFG_PATH=${PWD}/config/
 export AAUI_PORT=5050
 export AAUI_HOST=orderer.aaui.org
 
-CHANNEL_NAME="pharma-chain"
+CHANNEL_NAME="network_health_insurance"
 
 ########################################################################################################################
 # Functions definition
