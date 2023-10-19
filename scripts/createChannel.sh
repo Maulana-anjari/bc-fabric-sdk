@@ -4,81 +4,81 @@
 
 # Configure environment variables
 export CORE_PEER_TLS_ENABLED=true
-export ARSADA_CA=${PWD}/organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/msp/tlscacerts/tlsca.arsada.org-cert.pem
+export AAUI_CA=${PWD}/organizations/ordererOrganizations/aaui.org/orderers/orderer.aaui.org/msp/tlscacerts/tlsca.aaui.org-cert.pem
 
-export PEER0_SARDJITO_CA=${PWD}/organizations/peerOrganizations/sardjito.co.id/peers/peer0.sardjito.co.id/tls/ca.crt
-export PEER0_SARDJITO_PORT=7051
+export PEER0_PRUDENTIAL_CA=${PWD}/organizations/peerOrganizations/prudential.co.id/peers/peer0.prudential.co.id/tls/ca.crt
+export PEER0_PRUDENTIAL_PORT=7051
 
-export PEER0_RSCM_CA=${PWD}/organizations/peerOrganizations/rscm.co.id/peers/peer0.rscm.co.id/tls/ca.crt
-export PEER0_RSCM_PORT=8051
+export PEER0_MANULIFE_CA=${PWD}/organizations/peerOrganizations/manulife.co.id/peers/peer0.manulife.co.id/tls/ca.crt
+export PEER0_MANULIFE_PORT=8051
 
-export PEER0_DHARMAIS_CA=${PWD}/organizations/peerOrganizations/dharmais.co.id/peers/peer0.dharmais.co.id/tls/ca.crt
-export PEER0_DHARMAIS_PORT=9051
+export PEER0_ALLIANZ_CA=${PWD}/organizations/peerOrganizations/allianz.co.id/peers/peer0.allianz.co.id/tls/ca.crt
+export PEER0_ALLIANZ_PORT=9051
 
 export FABRIC_CFG_PATH=${PWD}/config/
 
-export ARSADA_PORT=5050
-export ARSADA_HOST=orderer.arsada.org
+export AAUI_PORT=5050
+export AAUI_HOST=orderer.aaui.org
 
 CHANNEL_NAME="pharma-chain"
 
 ########################################################################################################################
 # Functions definition
 
-setGlobalsForPeer0Sardjito(){
-    export CORE_PEER_LOCALMSPID="SardjitoMSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_SARDJITO_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/sardjito.co.id/users/Admin@sardjito.co.id/msp
-    export CORE_PEER_ADDRESS=localhost:$PEER0_SARDJITO_PORT
+setGlobalsForPeer0Prudential(){
+    export CORE_PEER_LOCALMSPID="PrudentialMSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_PRUDENTIAL_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/prudential.co.id/users/Admin@prudential.co.id/msp
+    export CORE_PEER_ADDRESS=localhost:$PEER0_PRUDENTIAL_PORT
 }
 
-setGlobalsForPeer0RSCM(){
-    export CORE_PEER_LOCALMSPID="RSCMMSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_RSCM_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/rscm.co.id/users/Admin@rscm.co.id/msp
-    export CORE_PEER_ADDRESS=localhost:$PEER0_RSCM_PORT
+setGlobalsForPeer0Manulife(){
+    export CORE_PEER_LOCALMSPID="ManulifeMSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_MANULIFE_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/manulife.co.id/users/Admin@manulife.co.id/msp
+    export CORE_PEER_ADDRESS=localhost:$PEER0_MANULIFE_PORT
 }
 
-setGlobalsForPeer0Dharmais(){
-    export CORE_PEER_LOCALMSPID="DharmaisMSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_DHARMAIS_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/dharmais.co.id/users/Admin@dharmais.co.id/msp
-    export CORE_PEER_ADDRESS=localhost:$PEER0_DHARMAIS_PORT
+setGlobalsForPeer0Allianz(){
+    export CORE_PEER_LOCALMSPID="AllianzMSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ALLIANZ_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/allianz.co.id/users/Admin@allianz.co.id/msp
+    export CORE_PEER_ADDRESS=localhost:$PEER0_ALLIANZ_PORT
 }
 
 createChannel(){
     # rm -rf ./channel-artifacts/*
-    setGlobalsForPeer0Sardjito
+    setGlobalsForPeer0Prudential
     
-    peer channel create -o localhost:$ARSADA_PORT -c $CHANNEL_NAME \
-    --ordererTLSHostnameOverride $ARSADA_HOST \
+    peer channel create -o localhost:$AAUI_PORT -c $CHANNEL_NAME \
+    --ordererTLSHostnameOverride $AAUI_HOST \
     -f ./channel-artifacts/${CHANNEL_NAME}.tx --outputBlock ./channel-artifacts/${CHANNEL_NAME}.block \
-    --tls $CORE_PEER_TLS_ENABLED --cafile $ARSADA_CA
+    --tls $CORE_PEER_TLS_ENABLED --cafile $AAUI_CA
 }
 
 joinChannel(){
-    setGlobalsForPeer0Sardjito
+    setGlobalsForPeer0Prudential
     peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
 
-    setGlobalsForPeer0RSCM
+    setGlobalsForPeer0Manulife
     peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block 
 
-    setGlobalsForPeer0Dharmais
+    setGlobalsForPeer0Allianz
     peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
 }
 
 updateAnchorPeers(){
-    setGlobalsForPeer0Sardjito
-    peer channel update -o localhost:$ARSADA_PORT --ordererTLSHostnameOverride $ARSADA_HOST -c $CHANNEL_NAME \
-    -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ARSADA_CA
+    setGlobalsForPeer0Prudential
+    peer channel update -o localhost:$AAUI_PORT --ordererTLSHostnameOverride $AAUI_HOST -c $CHANNEL_NAME \
+    -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $AAUI_CA
     
-    setGlobalsForPeer0RSCM
-    peer channel update -o localhost:$ARSADA_PORT --ordererTLSHostnameOverride $ARSADA_HOST -c $CHANNEL_NAME \
-    -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ARSADA_CA
+    setGlobalsForPeer0Manulife
+    peer channel update -o localhost:$AAUI_PORT --ordererTLSHostnameOverride $AAUI_HOST -c $CHANNEL_NAME \
+    -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $AAUI_CA
 
-    setGlobalsForPeer0Dharmais
-    peer channel update -o localhost:$ARSADA_PORT --ordererTLSHostnameOverride $ARSADA_HOST -c $CHANNEL_NAME \
-    -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ARSADA_CA
+    setGlobalsForPeer0Allianz
+    peer channel update -o localhost:$AAUI_PORT --ordererTLSHostnameOverride $AAUI_HOST -c $CHANNEL_NAME \
+    -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $AAUI_CA
 }
 
 # Start here
