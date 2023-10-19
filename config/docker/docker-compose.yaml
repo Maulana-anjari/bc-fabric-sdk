@@ -1,11 +1,13 @@
 version: "2"
 
 networks:
-  pharma-chain:
+  network_health_insurance:
+    name: network_health_insurance
+    driver: bridge
 
 services:
-  orderer.arsada.org:
-    container_name: orderer.arsada.org
+  orderer.aaui.org:
+    container_name: orderer.aaui.org
     image: hyperledger/fabric-orderer:2.1
     dns_search: .
     environment:
@@ -14,7 +16,7 @@ services:
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/genesis.block
-      - ORDERER_GENERAL_LOCALMSPID=ARSADAMSP
+      - ORDERER_GENERAL_LOCALMSPID=AAUIMSP
       - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
       - ORDERER_GENERAL_TLS_ENABLED=true
       - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
@@ -33,14 +35,14 @@ services:
       - 5050:5050
       - 5051:5051
     networks:
-      - pharma-chain
+      - network_health_insurance
     volumes:
       - ../../channel-artifacts/genesis.block:/var/hyperledger/orderer/genesis.block
-      - ../../organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/msp:/var/hyperledger/orderer/msp
-      - ../../organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/tls:/var/hyperledger/orderer/tls
+      - ../../organizations/ordererOrganizations/aaui.org/orderers/orderer.aaui.org/msp:/var/hyperledger/orderer/msp
+      - ../../organizations/ordererOrganizations/aaui.org/orderers/orderer.aaui.org/tls:/var/hyperledger/orderer/tls
 
-  orderer.arssi.org:
-    container_name: orderer.arssi.org
+  orderer.aaji.org:
+    container_name: orderer.aaji.org
     image: hyperledger/fabric-orderer:2.1
     dns_search: .
     environment:
@@ -49,7 +51,7 @@ services:
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
-      - ORDERER_GENERAL_LOCALMSPID=ARSSIMSP
+      - ORDERER_GENERAL_LOCALMSPID=AAJIMSP
       - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
       - ORDERER_GENERAL_TLS_ENABLED=true
       - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
@@ -68,31 +70,31 @@ services:
       - 6050:6050
       - 6061:6061
     networks:
-      - pharma-chain
+      - network_health_insurance
     volumes:
       - ../../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-      - ../../organizations/ordererOrganizations/arssi.org/orderers/orderer.arssi.org/msp:/var/hyperledger/orderer/msp
-      - ../../organizations/ordererOrganizations/arssi.org/orderers/orderer.arssi.org/tls:/var/hyperledger/orderer/tls
+      - ../../organizations/ordererOrganizations/aaji.org/orderers/orderer.aaji.org/msp:/var/hyperledger/orderer/msp
+      - ../../organizations/ordererOrganizations/aaji.org/orderers/orderer.aaji.org/tls:/var/hyperledger/orderer/tls
 
-  peer0.sardjito.co.id:
-    container_name: peer0.sardjito.co.id
+  peer0.prudential.co.id:
+    container_name: peer0.prudential.co.id
     extends:
       file: base.yaml
       service: peer-base
     environment:
       - FABRIC_LOGGING_SPEC=info
       - ORDERER_GENERAL_LOGLEVEL=info
-      - CORE_PEER_LOCALMSPID=SardjitoMSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_pharma-chain
-      - CORE_PEER_ID=peer0.sardjito.co.id
-      - CORE_PEER_ADDRESS=peer0.sardjito.co.id:7051
+      - CORE_PEER_LOCALMSPID=PrudentialMSP
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network_health_insurance
+      - CORE_PEER_ID=peer0.prudential.co.id
+      - CORE_PEER_ADDRESS=peer0.prudential.co.id:7051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.sardjito.co.id:7052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.prudential.co.id:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
       #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ta3.com:9051
       # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.sardjito.co.id:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.prudential.co.id:7051
       # - CORE_OPERATIONS_LISTENADDRESS=0.0.0.0:9440
       # - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       # - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
@@ -107,30 +109,30 @@ services:
     ports:
       - 7051:7051
     volumes:
-      - ../../organizations/peerOrganizations/sardjito.co.id/peers/peer0.sardjito.co.id/msp:/etc/hyperledger/crypto/peer/msp
-      - ../../organizations/peerOrganizations/sardjito.co.id/peers/peer0.sardjito.co.id/tls:/etc/hyperledger/crypto/peer/tls
+      - ../../organizations/peerOrganizations/prudential.co.id/peers/peer0.prudential.co.id/msp:/etc/hyperledger/crypto/peer/msp
+      - ../../organizations/peerOrganizations/prudential.co.id/peers/peer0.prudential.co.id/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
-      - pharma-chain
+      - network_health_insurance
 
-  peer0.rscm.co.id:
-    container_name: peer0.rscm.co.id
+  peer0.manulife.co.id:
+    container_name: peer0.manulife.co.id
     extends:
       file: base.yaml
       service: peer-base
     environment:
       - FABRIC_LOGGING_SPEC=info
       - ORDERER_GENERAL_LOGLEVEL=info
-      - CORE_PEER_LOCALMSPID=RSCMMSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_pharma-chain
-      - CORE_PEER_ID=peer0.rscm.co.id
-      - CORE_PEER_ADDRESS=peer0.rscm.co.id:8051
+      - CORE_PEER_LOCALMSPID=ManulifeMSP
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network_health_insurance
+      - CORE_PEER_ID=peer0.manulife.co.id
+      - CORE_PEER_ADDRESS=peer0.manulife.co.id:8051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.rscm.co.id:8052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.manulife.co.id:8052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
       # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.rscm.co.id:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.manulife.co.id:8051
       # - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       # - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
       # - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
@@ -145,27 +147,27 @@ services:
     ports:
       - 8051:8051
     volumes:
-      - ../../organizations/peerOrganizations/rscm.co.id/peers/peer0.rscm.co.id/msp:/etc/hyperledger/crypto/peer/msp
-      - ../../organizations/peerOrganizations/rscm.co.id/peers/peer0.rscm.co.id/tls:/etc/hyperledger/crypto/peer/tls
+      - ../../organizations/peerOrganizations/manulife.co.id/peers/peer0.manulife.co.id/msp:/etc/hyperledger/crypto/peer/msp
+      - ../../organizations/peerOrganizations/manulife.co.id/peers/peer0.manulife.co.id/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
-      - pharma-chain
+      - network_health_insurance
 
-  peer0.dharmais.co.id:
-    container_name: peer0.dharmais.co.id
+  peer0.allianz.co.id:
+    container_name: peer0.allianz.co.id
     extends:
       file: base.yaml
       service: peer-base
     environment:
       - FABRIC_LOGGING_SPEC=info
       - ORDERER_GENERAL_LOGLEVEL=info
-      - CORE_PEER_LOCALMSPID=DharmaisMSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_pharma-chain
-      - CORE_PEER_ID=peer0.dharmais.co.id
-      - CORE_PEER_ADDRESS=peer0.dharmais.co.id:9051
+      - CORE_PEER_LOCALMSPID=AllianzMSP
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network_health_insurance
+      - CORE_PEER_ID=peer0.allianz.co.id
+      - CORE_PEER_ADDRESS=peer0.allianz.co.id:9051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.dharmais.co.id:9052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.allianz.co.id:9052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.ta3.com:9051
@@ -183,9 +185,9 @@ services:
     ports:
       - 9051:9051
     volumes:
-      - ../../organizations/peerOrganizations/dharmais.co.id/peers/peer0.dharmais.co.id/msp:/etc/hyperledger/crypto/peer/msp
-      - ../../organizations/peerOrganizations/dharmais.co.id/peers/peer0.dharmais.co.id/tls:/etc/hyperledger/crypto/peer/tls
+      - ../../organizations/peerOrganizations/allianz.co.id/peers/peer0.allianz.co.id/msp:/etc/hyperledger/crypto/peer/msp
+      - ../../organizations/peerOrganizations/allianz.co.id/peers/peer0.allianz.co.id/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
-      - pharma-chain
+      - network_health_insurance
