@@ -4,21 +4,21 @@
 
 # Configure environment variables
 export CORE_PEER_TLS_ENABLED=true
-export ARSADA_CA=${PWD}/organizations/ordererOrganizations/arsada.org/orderers/orderer.arsada.org/msp/tlscacerts/tlsca.arsada.org-cert.pem
+export AAUI_CA=${PWD}/organizations/ordererOrganizations/aaui.org/orderers/orderer.aaui.org/msp/tlscacerts/tlsca.aaui.org-cert.pem
 
-export PEER0_SARDJITO_CA=${PWD}/organizations/peerOrganizations/sardjito.co.id/peers/peer0.sardjito.co.id/tls/ca.crt
-export PEER0_SARDJITO_PORT=7051
+export PEER0_PRUDENTIAL_CA=${PWD}/organizations/peerOrganizations/prudential.co.id/peers/peer0.prudential.co.id/tls/ca.crt
+export PEER0_PRUDENTIAL_PORT=7051
 
-export PEER0_RSCM_CA=${PWD}/organizations/peerOrganizations/rscm.co.id/peers/peer0.rscm.co.id/tls/ca.crt
-export PEER0_RSCM_PORT=8051
+export PEER0_MANULIFE_CA=${PWD}/organizations/peerOrganizations/manulife.co.id/peers/peer0.manulife.co.id/tls/ca.crt
+export PEER0_MANULIFE_PORT=8051
 
-export PEER0_DHARMAIS_CA=${PWD}/organizations/peerOrganizations/dharmais.co.id/peers/peer0.dharmais.co.id/tls/ca.crt
-export PEER0_DHARMAIS_PORT=9051
+export PEER0_ALLIANZ_CA=${PWD}/organizations/peerOrganizations/allianz.co.id/peers/peer0.allianz.co.id/tls/ca.crt
+export PEER0_ALLIANZ_PORT=9051
 
 export FABRIC_CFG_PATH=${PWD}/config/
 
-export ARSADA_PORT=5050
-export ARSADA_HOST=orderer.arsada.org
+export AAUI_PORT=5050
+export AAUI_HOST=orderer.aaui.org
 
 CHANNEL_NAME="pharma-chain"
 CC_RUNTIME_LANGUAGE="node"
@@ -29,31 +29,31 @@ CC_NAME="pharma-contract"
 ########################################################################################################################
 # Functions definition
 
-setGlobalsForPeer0Sardjito(){
-    export CORE_PEER_LOCALMSPID="SardjitoMSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_SARDJITO_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/sardjito.co.id/users/Admin@sardjito.co.id/msp
-    export CORE_PEER_ADDRESS=localhost:$PEER0_SARDJITO_PORT
+setGlobalsForPeer0Prudential(){
+    export CORE_PEER_LOCALMSPID="PrudentialMSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_PRUDENTIAL_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/prudential.co.id/users/Admin@prudential.co.id/msp
+    export CORE_PEER_ADDRESS=localhost:$PEER0_PRUDENTIAL_PORT
 }
 
-setGlobalsForPeer0RSCM(){
-    export CORE_PEER_LOCALMSPID="RSCMMSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_RSCM_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/rscm.co.id/users/Admin@rscm.co.id/msp
-    export CORE_PEER_ADDRESS=localhost:$PEER0_RSCM_PORT
+setGlobalsForPeer0Manulife(){
+    export CORE_PEER_LOCALMSPID="ManulifeMSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_MANULIFE_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/manulife.co.id/users/Admin@manulife.co.id/msp
+    export CORE_PEER_ADDRESS=localhost:$PEER0_MANULIFE_PORT
 }
 
-setGlobalsForPeer0Dharmais(){
-    export CORE_PEER_LOCALMSPID="DharmaisMSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_DHARMAIS_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/dharmais.co.id/users/Admin@dharmais.co.id/msp
-    export CORE_PEER_ADDRESS=localhost:$PEER0_DHARMAIS_PORT
+setGlobalsForPeer0Allianz(){
+    export CORE_PEER_LOCALMSPID="AllianzMSP"
+    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ALLIANZ_CA
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/allianz.co.id/users/Admin@allianz.co.id/msp
+    export CORE_PEER_ADDRESS=localhost:$PEER0_ALLIANZ_PORT
 }
 
 packageChaincode() {
     rm -rf ${CC_NAME}.tar.gz
 
-    setGlobalsForPeer0Sardjito
+    setGlobalsForPeer0Prudential
     peer lifecycle chaincode package ${CC_NAME}.tar.gz \
         --path ${CC_SRC_PATH} --lang ${CC_RUNTIME_LANGUAGE} \
         --label ${CC_NAME}_${VERSION}
@@ -61,57 +61,57 @@ packageChaincode() {
 }
 
 installChaincode() {
-    setGlobalsForPeer0Sardjito
+    setGlobalsForPeer0Prudential
     peer lifecycle chaincode install ${CC_NAME}.tar.gz
-    echo "===================== Chaincode is installed on peer0.sardjito ===================== "
+    echo "===================== Chaincode is installed on peer0.prudential ===================== "
 
-    setGlobalsForPeer0RSCM
+    setGlobalsForPeer0Manulife
     peer lifecycle chaincode install ${CC_NAME}.tar.gz
-    echo "===================== Chaincode is installed on peer0.rscm ===================== "
+    echo "===================== Chaincode is installed on peer0.manulife ===================== "
 
-    setGlobalsForPeer0Dharmais
+    setGlobalsForPeer0Allianz
     peer lifecycle chaincode install ${CC_NAME}.tar.gz
-    echo "===================== Chaincode is installed on peer0.dharmais ===================== "
+    echo "===================== Chaincode is installed on peer0.allianz ===================== "
 }
 
 queryInstalled() {
-    setGlobalsForPeer0Dharmais
+    setGlobalsForPeer0Allianz
     peer lifecycle chaincode queryinstalled >&log.txt
     cat log.txt
     PACKAGE_ID=$(sed -n "/${CC_NAME}_${VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}" log.txt)
     echo PackageID is ${PACKAGE_ID}
-    echo "===================== Query installed successful on peer0.dharmais on channel ${CHANNEL_NAME}===================== "
+    echo "===================== Query installed successful on peer0.allianz on channel ${CHANNEL_NAME}===================== "
 }
 
 approveChaincode() {
 
-    setGlobalsForPeer0Sardjito
-    peer lifecycle chaincode approveformyorg -o localhost:$ARSADA_PORT \
-        --ordererTLSHostnameOverride $ARSADA_HOST --tls \
-        --cafile $ARSADA_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
+    setGlobalsForPeer0Prudential
+    peer lifecycle chaincode approveformyorg -o localhost:$AAUI_PORT \
+        --ordererTLSHostnameOverride $AAUI_HOST --tls \
+        --cafile $AAUI_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
         --package-id ${PACKAGE_ID} \
         --sequence ${VERSION}
-    echo "===================== chaincode approved from SARDJITO ===================== "
+    echo "===================== chaincode approved from PRUDENTIAL ===================== "
 
-    setGlobalsForPeer0RSCM
-    peer lifecycle chaincode approveformyorg -o localhost:$ARSADA_PORT \
-        --ordererTLSHostnameOverride $ARSADA_HOST --tls \
-        --cafile $ARSADA_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
+    setGlobalsForPeer0Manulife
+    peer lifecycle chaincode approveformyorg -o localhost:$AAUI_PORT \
+        --ordererTLSHostnameOverride $AAUI_HOST --tls \
+        --cafile $AAUI_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
         --package-id ${PACKAGE_ID} \
         --sequence ${VERSION}
-    echo "===================== chaincode approved from RSCM ===================== "
+    echo "===================== chaincode approved from MANULIFE ===================== "
 
-    setGlobalsForPeer0Dharmais
-    peer lifecycle chaincode approveformyorg -o localhost:$ARSADA_PORT \
-        --ordererTLSHostnameOverride $ARSADA_HOST --tls \
-        --cafile $ARSADA_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
+    setGlobalsForPeer0Allianz
+    peer lifecycle chaincode approveformyorg -o localhost:$AAUI_PORT \
+        --ordererTLSHostnameOverride $AAUI_HOST --tls \
+        --cafile $AAUI_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
         --package-id ${PACKAGE_ID} \
         --sequence ${VERSION}
-    echo "===================== chaincode approved from DHARMAIS ===================== "
+    echo "===================== chaincode approved from ALLIANZ ===================== "
 }
 
 checkCommitReadyness() {
-    setGlobalsForPeer0Sardjito
+    setGlobalsForPeer0Prudential
     peer lifecycle chaincode checkcommitreadiness \
         --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${VERSION} \
         --sequence ${VERSION} --output json
@@ -119,19 +119,19 @@ checkCommitReadyness() {
 }
 
 commitChaincodeDefinition() {
-    setGlobalsForPeer0Sardjito
-    peer lifecycle chaincode commit -o localhost:$ARSADA_PORT --ordererTLSHostnameOverride $ARSADA_HOST \
-        --tls $CORE_PEER_TLS_ENABLED --cafile $ARSADA_CA \
+    setGlobalsForPeer0Prudential
+    peer lifecycle chaincode commit -o localhost:$AAUI_PORT --ordererTLSHostnameOverride $AAUI_HOST \
+        --tls $CORE_PEER_TLS_ENABLED --cafile $AAUI_CA \
         --channelID $CHANNEL_NAME --name ${CC_NAME} \
-        --peerAddresses localhost:$PEER0_SARDJITO_PORT --tlsRootCertFiles $PEER0_SARDJITO_CA \
-        --peerAddresses localhost:$PEER0_RSCM_PORT --tlsRootCertFiles $PEER0_RSCM_CA \
-        --peerAddresses localhost:$PEER0_DHARMAIS_PORT --tlsRootCertFiles $PEER0_DHARMAIS_CA \
+        --peerAddresses localhost:$PEER0_PRUDENTIAL_PORT --tlsRootCertFiles $PEER0_PRUDENTIAL_CA \
+        --peerAddresses localhost:$PEER0_MANULIFE_PORT --tlsRootCertFiles $PEER0_MANULIFE_CA \
+        --peerAddresses localhost:$PEER0_ALLIANZ_PORT --tlsRootCertFiles $PEER0_ALLIANZ_CA \
         --version ${VERSION} --sequence ${VERSION}
     echo "===================== Committing Chaincode ===================== "
 }
 
 queryCommitted() {
-    setGlobalsForPeer0Dharmais
+    setGlobalsForPeer0Allianz
     peer lifecycle chaincode querycommitted --channelID $CHANNEL_NAME #--name ${CC_NAME}
 }
 
