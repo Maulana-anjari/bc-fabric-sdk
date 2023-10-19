@@ -4,8 +4,8 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   # Orderer
   # ---------------------------------------------------------------------------
-  - Name: ARSADA
-    Domain: arsada.org
+  - Name: AAUI
+    Domain: aaui.org
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer
@@ -13,8 +13,8 @@ OrdererOrgs:
             - "localhost"
             - "127.0.0.1"
 
-  - Name: ARSSI
-    Domain: arssi.org
+  - Name: AAJI
+    Domain: aaji.org
     EnableNodeOUs: true
     Specs:
       - Hostname: orderer
@@ -24,10 +24,10 @@ OrdererOrgs:
 
 PeerOrgs:
   # ---------------------------------------------------------------------------
-  # RSUP Dr. Sardjito, DIY [Central General Hospital]
+  # Prudential
   # ---------------------------------------------------------------------------
-  - Name: Sardjito
-    Domain: sardjito.co.id
+  - Name: Prudential
+    Domain: prudential.co.id
     EnableNodeOUs: true
     Template:
       Count: 1
@@ -36,10 +36,10 @@ PeerOrgs:
     Users:
       Count: 1
   # ---------------------------------------------------------------------------
-  # RSUPN Dr. Cipto Mangunkusumo, Jakarta Pusat [National Central General Hospital]
+  # Manulife
   # ---------------------------------------------------------------------------
-  - Name: RSCM
-    Domain: rscm.co.id
+  - Name: Manulife
+    Domain: manulife.co.id
     EnableNodeOUs: true
     Template:
       Count: 1
@@ -48,10 +48,10 @@ PeerOrgs:
     Users:
       Count: 1
   # ---------------------------------------------------------------------------
-  # RS Kanker Dharmais, Jakarta Barat [Private Specialized Hospital]
+  # Allianz
   # ---------------------------------------------------------------------------
-  - Name: Dharmais
-    Domain: dharmais.co.id
+  - Name: Allianz
+    Domain: allianz.co.id
     EnableNodeOUs: true
     Template:
       Count: 1
