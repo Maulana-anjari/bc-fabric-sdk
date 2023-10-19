@@ -20,14 +20,14 @@ echo "==================================== Generating Channel Genesis ==========
 # Generate channel configuration block
 configtxgen -profile BasicChannel -configPath ./config/ -outputCreateChannelTx ./channel-artifacts/pharma-chain.tx -channelID $CHANNEL_NAME
 
-echo "==================================== Generating Anchor Sardjito ========================================================================"
-configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/SardjitoMSPanchors.tx -channelID $CHANNEL_NAME -asOrg SardjitoMSP
+echo "==================================== Generating Anchor Prudential ========================================================================"
+configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/PrudentialMSPanchors.tx -channelID $CHANNEL_NAME -asOrg PrudentialMSP
 
-echo "==================================== Generating Anchor RSCM ========================================================================"
-configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/RSCMMSPanchors.tx -channelID $CHANNEL_NAME -asOrg RSCMMSP
+echo "==================================== Generating Anchor Manulife ========================================================================"
+configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/ManulifeMSPanchors.tx -channelID $CHANNEL_NAME -asOrg ManulifeMSP
 
-echo "==================================== Generating Anchor Dharmais ========================================================================"
-configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/DharmaisMSPanchors.tx -channelID $CHANNEL_NAME -asOrg DharmaisMSP
+echo "==================================== Generating Anchor Allianz ========================================================================"
+configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/AllianzMSPanchors.tx -channelID $CHANNEL_NAME -asOrg AllianzMSP
 
 # echo "==================================== Generating Connection Profiles ===================================="
 # source ccp-generate.sh
