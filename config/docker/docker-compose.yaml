@@ -2,7 +2,7 @@ version: "2"
 
 networks:
   network-health-insurance:
-    name: network-health-insurance
+    name: docker_network-health-insurance
     driver: bridge
 
 services:
