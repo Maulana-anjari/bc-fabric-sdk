@@ -13,14 +13,14 @@ if [ -d ./organizations/ ]; then
 fi
 
 # Stop the network (if any)
-docker-compose -f ./config/docker/docker-compose.yaml down --volumes --remove-orphans
+docker compose -f ./config/docker/docker-compose.yaml down --volumes --remove-orphans
 
 # Create artifacts
 scripts/createArtifacts.sh
 
 # Start the network
 echo "==================================== Starting Docker network ====================================================="
-docker-compose -f ./config/docker/docker-compose.yaml up -d
+docker compose -f ./config/docker/docker-compose.yaml up -d
 
 sleep 3
 

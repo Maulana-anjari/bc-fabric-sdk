@@ -1,8 +1,8 @@
 version: "2"
 
 networks:
-  network_health_insurance:
-    name: network_health_insurance
+  network-health-insurance:
+    name: network-health-insurance
     driver: bridge
 
 services:
@@ -35,7 +35,7 @@ services:
       - 5050:5050
       - 5051:5051
     networks:
-      - network_health_insurance
+      - network-health-insurance
     volumes:
       - ../../channel-artifacts/genesis.block:/var/hyperledger/orderer/genesis.block
       - ../../organizations/ordererOrganizations/aaui.org/orderers/orderer.aaui.org/msp:/var/hyperledger/orderer/msp
@@ -70,7 +70,7 @@ services:
       - 6050:6050
       - 6061:6061
     networks:
-      - network_health_insurance
+      - network-health-insurance
     volumes:
       - ../../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
       - ../../organizations/ordererOrganizations/aaji.org/orderers/orderer.aaji.org/msp:/var/hyperledger/orderer/msp
@@ -85,7 +85,7 @@ services:
       - FABRIC_LOGGING_SPEC=info
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=PrudentialMSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network_health_insurance
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network-health-insurance
       - CORE_PEER_ID=peer0.prudential.co.id
       - CORE_PEER_ADDRESS=peer0.prudential.co.id:7051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
@@ -114,7 +114,7 @@ services:
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
-      - network_health_insurance
+      - network-health-insurance
 
   peer0.manulife.co.id:
     container_name: peer0.manulife.co.id
@@ -125,7 +125,7 @@ services:
       - FABRIC_LOGGING_SPEC=info
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=ManulifeMSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network_health_insurance
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network-health-insurance
       - CORE_PEER_ID=peer0.manulife.co.id
       - CORE_PEER_ADDRESS=peer0.manulife.co.id:8051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
@@ -152,7 +152,7 @@ services:
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
-      - network_health_insurance
+      - network-health-insurance
 
   peer0.allianz.co.id:
     container_name: peer0.allianz.co.id
@@ -163,7 +163,7 @@ services:
       - FABRIC_LOGGING_SPEC=info
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=AllianzMSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network_health_insurance
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network-health-insurance
       - CORE_PEER_ID=peer0.allianz.co.id
       - CORE_PEER_ADDRESS=peer0.allianz.co.id:9051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
@@ -190,4 +190,4 @@ services:
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
-      - network_health_insurance
+      - network-health-insurance

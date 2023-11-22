@@ -8,7 +8,7 @@ cryptogen generate --config=./config/crypto-config.yaml --output=./organizations
 
 # System channel
 SYS_CHANNEL="sys-channel"
-CHANNEL_NAME="network_health_insurance"
+CHANNEL_NAME="network-health-insurance"
 
 echo $CHANNEL_NAME
 
@@ -18,7 +18,7 @@ configtxgen -profile OrdererGenesis -configPath ./config/ -channelID $SYS_CHANNE
 
 echo "==================================== Generating Channel Genesis ========================================================================"
 # Generate channel configuration block
-configtxgen -profile BasicChannel -configPath ./config/ -outputCreateChannelTx ./channel-artifacts/network_health_insurance.tx -channelID $CHANNEL_NAME
+configtxgen -profile BasicChannel -configPath ./config/ -outputCreateChannelTx ./channel-artifacts/network-health-insurance.tx -channelID $CHANNEL_NAME
 
 echo "==================================== Generating Anchor Prudential ========================================================================"
 configtxgen -profile BasicChannel -configPath ./config/ -outputAnchorPeersUpdate ./channel-artifacts/PrudentialMSPanchors.tx -channelID $CHANNEL_NAME -asOrg PrudentialMSP
