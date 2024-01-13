@@ -2,7 +2,7 @@
 
 const { Contract } = require('fabric-contract-api');
 
-class Chaincode extends Contract {
+class Insurance extends Contract {
 
     async UploadIdentity(ctx, pubkey) {
         const mspid = ctx.clientIdentity.getMSPID();
@@ -30,4 +30,4 @@ class Chaincode extends Contract {
     }
 }
 
-module.exports = Chaincode;
+module.exports = Insurance;

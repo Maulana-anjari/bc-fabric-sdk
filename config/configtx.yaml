@@ -34,6 +34,8 @@ Organizations:
             Admins:
                 Type: Signature
                 Rule: "OR('AAUIMSP.admin')"
+        OrdererEndpoints:
+            - orderer.aaui.org:5050
     
     - &AAJI
         # DefaultOrg defines the organization which is used in the sampleconfig
@@ -59,6 +61,8 @@ Organizations:
             Admins:
                 Type: Signature
                 Rule: "OR('AAJIMSP.admin')"
+        OrdererEndpoints:
+            - orderer.aaui.org:6050
 
     - &Prudential
         # DefaultOrg defines the organization which is used in the sampleconfig
@@ -68,7 +72,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: PrudentialMSP
 
-        MSPDir: ../organizations/peerOrganizations/prudential.co.id/msp
+        MSPDir: ../organizations/peerOrganizations/prudential.aaui.org/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -92,7 +96,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.prudential.co.id
+            - Host: peer0.prudential.aaui.org
               Port: 7051
 
     - &Manulife
@@ -103,7 +107,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: ManulifeMSP
 
-        MSPDir: ../organizations/peerOrganizations/manulife.co.id/msp
+        MSPDir: ../organizations/peerOrganizations/manulife.aaui.org/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -126,7 +130,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.manulife.co.id
+            - Host: peer0.manulife.aaui.org
               Port: 8051
 
     - &Allianz
@@ -137,7 +141,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: AllianzMSP
 
-        MSPDir: ../organizations/peerOrganizations/allianz.co.id/msp
+        MSPDir: ../organizations/peerOrganizations/allianz.aaui.org/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -160,7 +164,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.allianz.co.id
+            - Host: peer0.allianz.aaji.org
               Port: 9051
 
 ################################################################################

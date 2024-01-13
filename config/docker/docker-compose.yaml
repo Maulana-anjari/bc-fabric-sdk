@@ -76,8 +76,8 @@ services:
       - ../../organizations/ordererOrganizations/aaji.org/orderers/orderer.aaji.org/msp:/var/hyperledger/orderer/msp
       - ../../organizations/ordererOrganizations/aaji.org/orderers/orderer.aaji.org/tls:/var/hyperledger/orderer/tls
 
-  peer0.prudential.co.id:
-    container_name: peer0.prudential.co.id
+  peer0.prudential.aaui.org:
+    container_name: peer0.prudential.aaui.org
     extends:
       file: base.yaml
       service: peer-base
@@ -86,15 +86,15 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=PrudentialMSP
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network-health-insurance
-      - CORE_PEER_ID=peer0.prudential.co.id
-      - CORE_PEER_ADDRESS=peer0.prudential.co.id:7051
+      - CORE_PEER_ID=peer0.prudential.aaui.org
+      - CORE_PEER_ADDRESS=peer0.prudential.aaui.org:7051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.prudential.co.id:7052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.prudential.aaui.org:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
       #- CORE_PEER_GOSSIP_BOOTSTRAP=peer0.ta3.com:9051
       # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.prudential.co.id:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.prudential.aaui.org:7051
       # - CORE_OPERATIONS_LISTENADDRESS=0.0.0.0:9440
       # - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       # - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
@@ -109,15 +109,15 @@ services:
     ports:
       - 7051:7051
     volumes:
-      - ../../organizations/peerOrganizations/prudential.co.id/peers/peer0.prudential.co.id/msp:/etc/hyperledger/crypto/peer/msp
-      - ../../organizations/peerOrganizations/prudential.co.id/peers/peer0.prudential.co.id/tls:/etc/hyperledger/crypto/peer/tls
+      - ../../organizations/peerOrganizations/prudential.aaui.org/peers/peer0.prudential.aaui.org/msp:/etc/hyperledger/crypto/peer/msp
+      - ../../organizations/peerOrganizations/prudential.aaui.org/peers/peer0.prudential.aaui.org/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
       - network-health-insurance
 
-  peer0.manulife.co.id:
-    container_name: peer0.manulife.co.id
+  peer0.manulife.aaui.org:
+    container_name: peer0.manulife.aaui.org
     extends:
       file: base.yaml
       service: peer-base
@@ -126,13 +126,13 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=ManulifeMSP
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network-health-insurance
-      - CORE_PEER_ID=peer0.manulife.co.id
-      - CORE_PEER_ADDRESS=peer0.manulife.co.id:8051
+      - CORE_PEER_ID=peer0.manulife.aaui.org
+      - CORE_PEER_ADDRESS=peer0.manulife.aaui.org:8051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.manulife.co.id:8052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.manulife.aaui.org:8052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
       # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.manulife.co.id:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.manulife.aaui.org:8051
       # - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       # - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
       # - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
@@ -147,15 +147,15 @@ services:
     ports:
       - 8051:8051
     volumes:
-      - ../../organizations/peerOrganizations/manulife.co.id/peers/peer0.manulife.co.id/msp:/etc/hyperledger/crypto/peer/msp
-      - ../../organizations/peerOrganizations/manulife.co.id/peers/peer0.manulife.co.id/tls:/etc/hyperledger/crypto/peer/tls
+      - ../../organizations/peerOrganizations/manulife.aaui.org/peers/peer0.manulife.aaui.org/msp:/etc/hyperledger/crypto/peer/msp
+      - ../../organizations/peerOrganizations/manulife.aaui.org/peers/peer0.manulife.aaui.org/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:
       - network-health-insurance
 
-  peer0.allianz.co.id:
-    container_name: peer0.allianz.co.id
+  peer0.allianz.aaui.org:
+    container_name: peer0.allianz.aaui.org
     extends:
       file: base.yaml
       service: peer-base
@@ -164,10 +164,10 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=info
       - CORE_PEER_LOCALMSPID=AllianzMSP
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=docker_network-health-insurance
-      - CORE_PEER_ID=peer0.allianz.co.id
-      - CORE_PEER_ADDRESS=peer0.allianz.co.id:9051
+      - CORE_PEER_ID=peer0.allianz.aaui.org
+      - CORE_PEER_ADDRESS=peer0.allianz.aaui.org:9051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.allianz.co.id:9052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.allianz.aaui.org:9052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.ta3.com:9051
@@ -185,8 +185,8 @@ services:
     ports:
       - 9051:9051
     volumes:
-      - ../../organizations/peerOrganizations/allianz.co.id/peers/peer0.allianz.co.id/msp:/etc/hyperledger/crypto/peer/msp
-      - ../../organizations/peerOrganizations/allianz.co.id/peers/peer0.allianz.co.id/tls:/etc/hyperledger/crypto/peer/tls
+      - ../../organizations/peerOrganizations/allianz.aaui.org/peers/peer0.allianz.aaui.org/msp:/etc/hyperledger/crypto/peer/msp
+      - ../../organizations/peerOrganizations/allianz.aaui.org/peers/peer0.allianz.aaui.org/tls:/etc/hyperledger/crypto/peer/tls
       - /var/run/:/host/var/run/
       # - ./channel/:/etc/hyperledger/channel/
     networks:

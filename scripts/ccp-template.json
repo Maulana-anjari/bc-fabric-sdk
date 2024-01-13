@@ -1,0 +1,51 @@
+{
+    "name": "test-network-${ORG}",
+    "version": "1.0.0",
+    "client": {
+        "organization": "${ORGMSP}",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "${ORGMSP}": {
+            "mspid": "${ORGMSP}MSP",
+            "peers": [
+                "peer0.${ORG}.aaui.org"
+            ],
+            "certificateAuthorities": [
+                "ca.${ORG}.aaui.org"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.${ORG}.aaui.org": {
+            "url": "grpcs://localhost:${P0PORT}",
+            "tlsCACerts": {
+                "pem": "${PEERPEM}"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.${ORG}.aaui.org",
+                "hostnameOverride": "peer0.${ORG}.aaui.org"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.${ORG}.aaui.org": {
+            "url": "https://localhost:${CAPORT}",
+            "caName": "ca-${ORG}",
+            "tlsCACerts": {
+                "pem": [
+                    "${CAPEM}"
+                ]
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}
